@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Helmet from 'react-helmet';
+import { Link } from 'react-router-dom';
 
 const Home = (props) => {
   useEffect(() => {
@@ -10,80 +11,103 @@ const Home = (props) => {
   return (
     <motion.div initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}}>
       <Helmet>
-        <title>Welcome to Leo Transport | Home</title>
+        <title>Welcome to Fastway Trucking | Home</title>
       </Helmet>
-      <div class="quick-step-services flex fl-center">
-        <div class="content-widthfix quick-step-services-content flex fl-space-between">
-          <ul class="flex fl-space-between">
-            <li class="flex fl-center fl-col">
-              <img src="http://ebaytemplate.com/thesoft/website/trucking/assets/img/team.png"/>
-              <h2>Dedicated team</h2>
-              <p>Quisque pretium a tellus sit amet aliquam. Integer vel augue ac diam cursus eleifend vel id arcu.</p>
-              <a class="btn-general primary-color small-button">Learn More</a>
+      <section className="slider-information flex fl-center">
+        <div className="slider-information-wrapper flex fl-center">
+          <div className="content-widthfix slider-information-content flex fl-center fl-col">
+            <h3>The Largest Source for</h3>
+            <h1>Heavy Duty <span className="primary-color">Truck</span> & <span className="primary-color">Trailer</span> Inventory</h1>
+            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nobis, facere tempora debitis in dicta quae? Ullam, officia nesciunt repellendus magni nam voluptatum reiciendis expedita enim repudiandae! Voluptas eum aspernatur ipsa.</p>
+            <div className="flex fl-center fl-space-between">
+              <Link to="/about" className="btn-general primary-btn mg-left">Learn More <i className="bi bi-info-circle"></i></Link>
+              <Link to="/trucks" className="btn-general ghost-btn mg-left">Search Inventory <i className="bi bi-box-seam"></i></Link>
+            </div>
+          </div>
+        </div>
+      </section>
+      <div className="logo-companies flex fl-center">
+        <div className="content-widthfix logos-home-wrapper flex fl-center fl-col">
+          <h2>Popular Brands</h2>
+          <h1>Companies We Work With</h1>
+          <ul className='list-of-logos flex fl-center fl-space-between'>
+            <li>
+              <img src="https://hipointtrucksales.com/img/brands/peterbilt.png" alt="" srcset="https://hipointtrucksales.com/img/brands/peterbilt.png" />
             </li>
-            <li class="flex fl-center fl-col">
-              <img src="http://ebaytemplate.com/thesoft/website/trucking/assets/img/experience.png"/>
-              <h2>Transportation</h2>
-              <p>Quisque pretium a tellus sit amet aliquam. Integer vel augue ac diam cursus eleifend vel id arcu.</p>
-              <a class="btn-general primary-color small-button">Learn More</a>
+            <li>
+              <img src="https://hipointtrucksales.com/img/brands/volvo.png" alt="" srcset="https://hipointtrucksales.com/img/brands/volvo.png" />
             </li>
-            <li class="flex fl-center fl-col">
-              <img src="http://ebaytemplate.com/thesoft/website/trucking/assets/img/reputation.png"/>
-              <h2>Spotless Reputation</h2>
-              <p>Quisque pretium a tellus sit amet aliquam. Integer vel augue ac diam cursus eleifend vel id arcu.</p>
-              <a class="btn-general primary-color small-button">Learn More</a>
+            <li>
+              <img src="https://hipointtrucksales.com/img/brands/kenworth.png" alt="" srcset="https://hipointtrucksales.com/img/brands/kenworth.png" />
+            </li>
+            <li>
+              <img src="https://hipointtrucksales.com/img/brands/western-star.png" alt="" srcset="https://hipointtrucksales.com/img/brands/western-star.png" />
+            </li>
+            <li>
+              <img src="https://hipointtrucksales.com/img/brands/kenworth.png" alt="" srcset="https://hipointtrucksales.com/img/brands/hino.png" />
+            </li>
+            <li>
+              <img src="https://hipointtrucksales.com/img/brands/kenworth.png" alt="" srcset="https://hipointtrucksales.com/img/brands/international.png" />
+            </li>
+            <li>
+              <img src="https://hipointtrucksales.com/img/brands/kenworth.png" alt="" srcset="https://hipointtrucksales.com/img/brands/freightliner.png" />
+            </li>
+            <li>
+              <img src="https://hipointtrucksales.com/img/brands/kenworth.png" alt="" srcset="https://hipointtrucksales.com/img/brands/ford.png" />
             </li>
           </ul>
         </div>
       </div>
-      <section class="about-us-container flex fl-center">
-        <div class="content-widthfix about-us-services-content flex fl-col fl-center">
-          <div class="header-title-content flex fl-col fl-center">
-            <span class="primary-color">SERVE OVER 4+ YEARS</span>
-            <h1>About Us</h1>
+      <div className="flex fl-center">
+        <div className="content-widthfix about-wrapper flex fl-center fl-space-between">
+          <div className="images-selection">
+            <img className="floating-img-again" src="./images/location.jpeg" width="250"></img>
+            <img className="about-images" src='https://images.unsplash.com/photo-1531683760080-7bb28a630bd7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=654&q=80' width="200"></img>
+            <img className="floating-img" src='./images/lined-up.jpeg' width="300"></img>
           </div>
-          <div class="about-text-and-images flex fl-space-between fl-center">
-            <div class="text-and-list">
-              <p>Leo transport company happily services all of Manitoba, but we know no bounds! If you need something hauled in Saskatchewan, Alberta or across the borders we have you covered. We have the most proficient and enthusiastic team of professional drivers on the roads. With the cohesion of operatives with a combined involvement of over fifty years in this field. Our operators are our most high regarded worth and the reason for our expansion and accomplishment.</p>
-              <ul class="list-of-service-about flex">
-                <li><i class="bi bi-check-all"></i>Best Teams</li>
-                <li><i class="bi bi-check-all"></i>Excellent Reputation</li>
-                <li><i class="bi bi-check-all"></i>Negotiation</li>
-                <li><i class="bi bi-check-all"></i>Market Knowledge</li>
-                <li><i class="bi bi-check-all"></i>Flexibility</li>
-                <li><i class="bi bi-check-all"></i>Years Of Experience</li>
-              </ul>
-              <a class="btn-general primary-btn small-button">Read More</a>
+          <div className="about-us-content">
+            <h4>About Us</h4>
+            <h2>Welcome to our car repairing shop</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <div className='ghost-boxes flex'>
+              <div className='ghost-box flex fl-center'>
+                <h1>25+</h1>
+                <h4>Experience Members</h4>
+              </div>
+              <div className='ghost-box flex fl-center'>
+                <h1>5K+</h1>
+                <h4>Satisfied Clients</h4>
+              </div>
             </div>
-            <img src="https://images.unsplash.com/photo-1591768793355-74d04bb6608f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1472&q=80" alt="" srcset="" width="500"/>
+            <Link to="/about" className="btn-general primary-btn"> Read More <i className="bi bi-arrow-right"></i></Link>
           </div>
         </div>
-      </section>
-      <section class="services-container flex fl-center">
-        <div class="content-widthfix about-us-services-content flex fl-col fl-center">
-          <div class="header-title-content flex fl-col fl-center">
-            <span class="primary-color">Our Servicex</span>
-            <h1>We Offer Best Services</h1>
+      </div>
+      <div className="flex fl-center services-container">
+        <div className="content-widthfix about-wrapper flex fl-center fl-space-between">
+          <div className="about-us-content">
+            <h4>Why Choose Us</h4>
+            <h2>Our best advantages</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</p>
+            <ul className='list-of-services flex fl-space-between fl-center'>
+              <li><i className="bi bi-check2-all"></i> Low Price Guarantee</li>
+              <li><i className="bi bi-check2-all"></i> Trained Technicians</li>
+              <li><i className="bi bi-check2-all"></i> Life-Time Warranty</li>
+              <li><i className="bi bi-check2-all"></i>  Automated testing lanes</li>
+              <li><i className="bi bi-check2-all"></i> Quick Service Times</li>
+              <li><i className="bi bi-check2-all"></i> Free Trade Appraisal</li>
+              <li><i className="bi bi-check2-all"></i> Genuine spare parts</li>
+              <li><i className="bi bi-check2-all"></i> Unbeatable savings!</li>
+            </ul>
+            <Link to="/about" className="btn-general primary-btn"> Read More <i className="bi bi-arrow-right"></i></Link>
           </div>
-          <ul class="services-list flex fl-center">
-            <li class="flex fl-col fl-center">
-              <img src="http://ebaytemplate.com/thesoft/website/trucking/assets/img/services/service-1.png"/>
-              <h2>Competitive Pay</h2>
-              <p>Lorem ipsum dolor sit amet adipiscing elit sed do eiusmod. </p>
-            </li>
-            <li class="flex fl-col fl-center">
-              <img src="http://ebaytemplate.com/thesoft/website/trucking/assets/img/services/service-2.png"/>
-              <h2>Flexible Hours</h2>
-              <p>Lorem ipsum dolor sit amet adipiscing elit sed do eiusmod</p>
-            </li>
-            <li class="flex fl-col fl-center">
-              <img src="http://ebaytemplate.com/thesoft/website/trucking/assets/img/services/service-3.png"/>
-              <h2>24/7 services</h2>
-              <p>Lorem ipsum dolor sit amet adipiscing elit sed do eiusmod</p>
-            </li>
-          </ul>
+          <div className="images-selection">
+            <img className="about-images" src='./images/truck.jpeg' width="230"></img>
+            <img className="floating-img" src='./images/stackedTrailers.jpeg' width="250"></img>
+          </div>
         </div>
-      </section>
+      </div>
     </motion.div>
   )
 }

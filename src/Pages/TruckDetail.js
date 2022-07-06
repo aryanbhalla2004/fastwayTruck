@@ -1,0 +1,123 @@
+import React, { useEffect } from 'react';
+import { PageTitle } from '../Components/page-header';
+import { motion } from 'framer-motion';
+import Helmet from 'react-helmet';
+import { Link } from 'react-router-dom';
+
+const TruckDetail = () => {
+  return (
+    <motion.div initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}}>
+      <Helmet>
+        <title>Trucks | Fastway Trucking</title>
+      </Helmet>
+    <PageTitle name="KENWORTH - T800 - DUMP TRUCK"/>
+    <div className="flex fl-center detail-page-header">  
+      <div className='content-widthfix flex fl-center'>
+        <a className='active-single-detail-header-btn'>Profile</a>
+        <a>Inquire</a>
+      </div>
+    </div>
+
+    <div className="flex fl-center detail-page">  
+      <div className='content-widthfix details-boxes flex fl-center fl-space-between'>
+        <div className='single-row'>
+          <div className='single-box gallery-container'>
+            <div className='single-box-header'>
+              <h2><i className="bi bi-image"></i> Gallery</h2>
+            </div>
+            <img src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80" width="500"></img>
+          </div>
+          
+          <div className='single-box'>
+            <div className='single-box-header'>
+              <h2><i className="bi bi-grid-3x2-gap-fill"></i> Amenities</h2>
+            </div>
+            
+          </div>  
+        </div>
+        <div className='single-row'>
+          <div className='single-box description'>
+            <div className='single-box-header'>
+              <h2><i className="bi bi-justify"></i> Description</h2>
+            </div>
+            <p>The all-new Volvo XC60 is a terrific luxury compact SUV. It's been fully redesigned for 2017 and features improvements across the board. These changes bump the vehicle from its previous midpack standing; it now resides with some of the best in the class. Some of the most notable improvements include a state-of-the-art infotainment system, more legroom for rear-seat riders, and peppy engine choices.</p>
+          </div>
+        <div className='single-box'>
+          <div className='single-box-header'>
+            <h2><i className="bi bi-card-checklist"></i> Technical Specifications</h2>
+          </div>
+          <ul className='techincal-list flex fl-col'>
+            <li>Manufacturing Year <span>2017</span></li>
+            <li>Number of doors <span>5</span></li>
+            <li>Max passengers <span>5</span></li>
+            <li>Fuel <span>Diesel</span></li>
+            <li>Fuel usage per 100km <span>2017</span></li>
+            <li>Mileage <span>23650 km</span></li>
+            <li>Color <span>Silver</span></li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+
+    
+
+    <div className="logo-companies recommened-items-single-details flex fl-center">
+        <div className="content-widthfix logos-home-wrapper flex fl-center fl-col">
+          <h2>Recommended Products</h2>
+          <h1>Items you might like</h1>
+          <ul className='listing-of-items recommened-pro flex fl-center fl-space-between'>
+            <li className='single-item flex fl-col'>
+              <div className="item-image" style={{backgroundImage: `url("https://hpmis.com/backend/uploads/9487a23de53d35604b84bf4b9a24ae74k.jpeg")`}}>
+                <span className='new-item'>New</span>
+              </div>
+              <div className='single-item-info flex fl-col'>
+                <span className='stock-num'>Stock #517 | <b>Year: 2022</b></span>
+                <h2>KENWORTH - T800 - DUMP TRUCK</h2>
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odit officia nobis, labore quo minus iusto nostrum voluptates delectus.</p>
+                <ul className='flex'>
+                  <li><i className="bi bi-speedometer"></i> 568158 KMs</li>
+                  <li><i className="bi bi-gear-wide"></i> 18 Speed</li>
+                </ul>
+              </div>
+              <Link to={`/truck-detail/2323`} className='view-truck-button flex fl-space-between'>View Details <i className="bi bi-arrow-right"></i></Link>
+            </li>
+            <li className='single-item flex fl-col'>
+              <div className="item-image" style={{backgroundImage: `url("https://hpmis.com/backend/uploads/9487a23de53d35604b84bf4b9a24ae74k.jpeg")`}}>
+                <span className='new-item'>New</span>
+              </div>
+              <div className='single-item-info flex fl-col'>
+                <span className='stock-num'>Stock #517 | <b>Year: 2022</b></span>
+                <h2>KENWORTH - T800 - DUMP TRUCK</h2>
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odit officia nobis, labore quo minus iusto nostrum voluptates delectus.</p>
+                <ul className='flex'>
+                  <li><i className="bi bi-speedometer"></i> 568158 KMs</li>
+                  <li><i className="bi bi-gear-wide"></i> 18 Speed</li>
+                </ul>
+              </div>
+              <Link to={`/truck-detail/2323`} className='view-truck-button flex fl-space-between'>View Details <i className="bi bi-arrow-right"></i></Link>
+            </li>
+            
+            <li className='single-item flex fl-col'>
+              <div className="item-image" style={{backgroundImage: `url("https://hpmis.com/backend/uploads/9487a23de53d35604b84bf4b9a24ae74k.jpeg")`}}>
+                <span className='new-item'>New</span>
+              </div>
+              <div className='single-item-info flex fl-col'>
+                <span className='stock-num'>Stock #517 | <b>Year: 2022</b></span>
+                <h2>KENWORTH - T800 - DUMP TRUCK</h2>
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odit officia nobis, labore quo minus iusto nostrum voluptates delectus.</p>
+                <ul className='flex'>
+                  <li><i className="bi bi-speedometer"></i> 568158 KMs</li>
+                  <li><i className="bi bi-gear-wide"></i> 18 Speed</li>
+                </ul>
+              </div>
+              <Link to={`/truck-detail/2323`} className='view-truck-button flex fl-space-between'>View Details <i className="bi bi-arrow-right"></i></Link>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </motion.div>
+  )
+}
+
+export default TruckDetail;

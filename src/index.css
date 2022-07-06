@@ -21,7 +21,7 @@ time, mark, audio, video {
   padding: 0;
   border: 0;
   font-size: 100%;
-  font-family: 'Rajdhani', sans-serif;
+  font-family: 'Barlow', sans-serif;
   vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
@@ -49,10 +49,17 @@ table {
   border-spacing: 0;
 }
 
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
 .flex {
   display: flex;
   flex-wrap: wrap;
-
 }
 
 .fl-center {
@@ -93,7 +100,7 @@ table {
   align-items: center;
   justify-content: space-between;
   gap: 10px;
-  border-radius: 50px;
+  border-radius: 3px;
 }
 
 .small-button {
@@ -103,14 +110,29 @@ table {
 }
 
 .primary-btn {
-  background-color: #ec1d25;
-  color: #fff;
+  background-color: #b22f33;
+  color: #fff !important;
+  border: 1px solid #b22f33;
 }
 
 .primary-color {
-  color: #ec1d25 !important;
+  color: #b22f33 !important;
+}
+
+.ghost-btn {
+  border: 1px solid #fff;
+  color: #b22f33;
+  background-color: #fff;
+}
+
+.secondary-color {
+  color: #0f0f41 !important;
 }
 
 .primary-btn:hover {
   background-color: #9d1217;
+}
+
+.mg-left {
+  margin-left: 10px;
 }
