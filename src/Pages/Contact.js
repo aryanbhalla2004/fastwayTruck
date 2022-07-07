@@ -42,7 +42,7 @@ export const Contact = () => {
               </div>
               <div>
                 <h3>Phone:</h3>
-                <p>+1 (204)-899-0713</p>
+                <p>+1 (204)-615-1000</p>
               </div>
             </div>
           </div>
