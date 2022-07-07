@@ -10,7 +10,7 @@ const Header = (props) => {
         <div className="content-widthfix information-tab-content flex fl-space-between">
           <div className="single-info-title flex">
             <i className="bi bi-clock"></i>
-            <h4>Monday-Sunday 7:00AM - 6:00PM</h4>
+            <h4>Monday-Friday 9:00AM - 5:00PM</h4>
           </div>
           <div className="single-info-title flex">
             <i className="bi bi-geo-alt"></i>
@@ -18,7 +18,7 @@ const Header = (props) => {
           </div>
           <div className="single-info-title flex white-bg">
             <i className="bi bi-telephone"></i>
-            <h4>+1 (204)-899-0713</h4>
+            <h4>+1 (204)-615-1000</h4>
           </div>
         </div>
       </div>
