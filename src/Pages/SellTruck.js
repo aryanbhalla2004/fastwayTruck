@@ -3,11 +3,13 @@ import { PageTitle } from '../Components/page-header';
 import { motion } from 'framer-motion';
 import Helmet from 'react-helmet';
 import moment from 'moment';
+import {firebase} from "../Util/Firebase";
 import emailjs from '@emailjs/browser';
 
 const SellTruck = () => {
   const [message, setMessage] = useState(false);
   const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [truckDetail, setTruckDetail] = useState({
     ContactName: '',
     ContactEmail: '',
@@ -27,26 +29,84 @@ const SellTruck = () => {
     FuelTank: ''
   });
 
+  const [fieldError, setFieldError] = useState({
+    ContactName: false,
+    ContactEmail: false,
+    ContactPhone: false,
+    TruckType: false,
+    TruckMake: false,
+    Year: false,
+  })
+
   const updateUserInput = (e) => {
+    setFieldError(prevInput => ({
+      ...prevInput, [e.target.name]: false
+    }));
+
     setTruckDetail(prevInput => ({
       ...prevInput, [e.target.name]: e.target.value
     }));
   }
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();    
-    if(truckDetail.ContactName != "" && truckDetail.ContactEmail != "" && truckDetail.ContactPhone != "" && truckDetail.TruckType != "" && truckDetail.TruckMake != "" && truckDetail.Year <= moment().year() + 1) {
+    setLoading(true);
+    
+    if(truckDetail.ContactName != "" && truckDetail.ContactEmail != "" && truckDetail.ContactPhone != "" && truckDetail.TruckType != "" && truckDetail.TruckMake != "" && truckDetail.Year <= moment().year() + 1 && truckDetail.Year > 1900) {
       try {
-        //emailjs.send("service_7bhb3hf", "template_zolsttk", truckDetail, 'O4nqrVM4jnHS9WBVF');
-        setMessage(true);
+        await emailjs.send("service_7bhb3hf", "template_zolsttk", truckDetail, 'O4nqrVM4jnHS9WBVF');
+        await firebase.firestore().collection("TruckPost").doc().set(truckDetail);
+        setTimeout(() => {
+          setLoading(false);
+          setMessage(true);
+          window.scrollTo(0, 0)
+        }, 3000)
+        
       } catch(e) {
         setError(true);
         console.log(e);
+        setLoading(false);
       }
 
-      window.scrollTo(0, 0)
     } else {
-      console.log("error")
+      
+      setLoading(false);
+      if(truckDetail.ContactName == "") {
+        setFieldError(prevInput => ({
+          ...prevInput, ContactName: true
+        }));
+      }
+
+      if(truckDetail.ContactEmail == "") {
+        setFieldError(prevInput => ({
+          ...prevInput, ContactEmail: true
+        }));
+      }
+
+      if(truckDetail.ContactPhone == "") {
+        setFieldError(prevInput => ({
+          ...prevInput, ContactPhone: true
+        }));
+      }
+
+      if(truckDetail.TruckType == "") {
+        setFieldError(prevInput => ({
+          ...prevInput, TruckType: true
+        }));
+      }
+
+      if(truckDetail.TruckMake == "") {
+        setFieldError(prevInput => ({
+          ...prevInput, TruckMake: true
+        }));
+      }
+
+      if(truckDetail.Year == "" || truckDetail.Year > moment().year() + 1 || truckDetail.Year < 1900) {
+        console.log(truckDetail.Year);
+        setFieldError(prevInput => ({
+          ...prevInput, Year: true
+        }));
+      }
     }
     //! Check for validation
     //! Send Email to user for posting
@@ -95,17 +155,17 @@ const SellTruck = () => {
                 <div className="col">
                   <label className="form-label text-dark" htmlFor="c-name">Name<span>*</span></label>
                   <input className="form-control form-control-md form-control-dark" id="name" name="ContactName" value={truckDetail.ContactName} onChange={updateUserInput} type="text" required=""/>
-                  <div className="invalid-feedback">Please, enter name</div>
+                  {fieldError.ContactName && <div id="validationServer03Feedback" class="invalid-feedback mt-0 mb-0">Please provide a valid Name.</div>}
                 </div>
                 <div className="col">
                   <label className="form-label text-dark" htmlFor="c-name">Email<span>*</span></label>
                   <input className="form-control form-control-md form-control-dark" id="email" name="ContactEmail" value={truckDetail.ContactEmail} onChange={updateUserInput} type="email"  required=""/>
-                  <div className="invalid-feedback">Please, enter email</div>
+                  {fieldError.ContactEmail && <div id="validationServer03Feedback" class="invalid-feedback mt-0 mb-0">Please provide a valid Email.</div>}
                 </div>
                 <div className="col">
                   <label className="form-label text-dark" htmlFor="c-name">Phone Number<span >*</span></label>
                   <input className="form-control form-control-md form-control-dark" id="phone" name="ContactPhone" value={truckDetail.ContactPhone} onChange={updateUserInput} type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required="" placeholder="XXX-XXX-XXXX" />
-                  <div className="invalid-feedback">Please, enter phone number</div>
+                  {fieldError.ContactPhone && <div id="validationServer03Feedback" class="invalid-feedback mt-0 mb-0">Please provide a valid Phone Number.</div>}
                 </div>
               </div>
             </section>
@@ -120,7 +180,7 @@ const SellTruck = () => {
                     <option value="HIGHWAY">HIGHWAY</option>
                     <option value="DUMP TRUCK">DUMP TRUCK</option>
                   </select>
-                  <div className="invalid-feedback">Please, enter type</div>
+                  {fieldError.TruckType && <div id="validationServer03Feedback" class="invalid-feedback mt-0 mb-0">Please select a valid Type.</div>}
                 </div>
                 <div className="col">
                   <label className="form-label text-dark" htmlFor="c-name">Make<span>*</span></label>
@@ -139,22 +199,20 @@ const SellTruck = () => {
                     <option value="WESTERN STAR">WESTERN STAR</option>
                     <option value="WHITE">WHITE</option>
                   </select>
-                  <div className="invalid-feedback">Please, enter make</div>
+                  {fieldError.TruckMake && <div id="validationServer03Feedback" class="invalid-feedback mt-0 mb-0">Please select a valid Make.</div>}
                 </div>
                 <div className="col">
                   <label className="form-label text-dark" htmlFor="c-name">Model</label>
                   <input className="form-control form-control-md form-control-dark" id="model" name="Model" value={truckDetail.Model} onChange={updateUserInput} type="text"/>
-                  <div className="invalid-feedback">Please, enter model</div>
                 </div>
                 <div className="col">
                   <label className="form-label text-dark" htmlFor="c-name">Year<span>*</span></label>
                   <input className="form-control form-control-md form-control-dark" id="year" name="Year" value={truckDetail.Year} onChange={updateUserInput} type="number" required="" placeholder="YYYY" maxlength="4"/>
-                  <div className="invalid-feedback">Please, enter year</div>
+                  {fieldError.Year && <div id="validationServer03Feedback" class="invalid-feedback mt-0 mb-0">Please enter a valid Year.</div>}
                 </div>
                 <div className="col">
                   <label className="form-label text-dark" htmlFor="c-name">VIN</label>
                   <input className="form-control form-control-md form-control-dark" id="vin" name="Vin" value={truckDetail.Vin} onChange={updateUserInput} type="text" />
-                  <div className="invalid-feedback">Please, enter vin</div>
                 </div>
                 </div>
                 <div className="row mt-3">
@@ -173,12 +231,10 @@ const SellTruck = () => {
                       <option value="BRONZE">BRONZE</option>
                       <option value="GOLD">GOLD</option>
                     </select>
-                    <div className="invalid-feedback">Please, enter color</div>
                   </div>
                   <div className="col">
                     <label className="form-label text-dark" htmlFor="c-name">Engine</label>
                     <input className="form-control form-control-md form-control-dark" id="engine" name="Engine" value={truckDetail.Engine} onChange={updateUserInput} type="text" />
-                    <div className="invalid-feedback">Please, enter engine</div>
                   </div>
                   <div className="col">
                     <label className="form-label text-dark" htmlFor="c-name">Transmission</label>
@@ -190,24 +246,20 @@ const SellTruck = () => {
                       <option value="13 SPEED">13 SPEED</option>
                       <option value="18 SPEED">18 SPEED</option>
                     </select>
-                    <div className="invalid-feedback">Please, enter transmission</div>
                   </div>
                   <div className="col">
                     <label className="form-label text-dark" htmlFor="c-name">Ratio</label>
                     <input className="form-control form-control-md form-control-dark" id="ratio" name="Ratio" value={truckDetail.Ratio} onChange={updateUserInput} type="text" />
-                    <div className="invalid-feedback">Please, enter ratio</div>
                   </div>
                 </div>
                 <div className="row mt-3">
                   <div className="col">
                     <label className="form-label text-dark" htmlFor="c-name">Wheelbase</label>
                     <input className="form-control form-control-md form-control-dark" id="wheelbase" name="WheelBase" value={truckDetail.WheelBase} onChange={updateUserInput} type="text" />
-                    <div className="invalid-feedback">Please, enter wheelbase</div>
                   </div>
                   <div className="col">
                     <label className="form-label text-dark" htmlFor="c-name">Sleeper</label>
                     <input className="form-control form-control-md form-control-dark" id="sleeper" name="Sleeper" value={truckDetail.Sleeper} onChange={updateUserInput} type="text" />
-                    <div className="invalid-feedback">Please, enter sleeper</div>
                   </div>
                   <div className="col">
                     <div className="row">
@@ -219,17 +271,15 @@ const SellTruck = () => {
                       </div>
                     </div>
                     <input className="form-control form-control-md form-control-dark" id="mileage" name="Mileage" value={truckDetail.Mileage} onChange={updateUserInput} type="text" required="" />
-                    <div className="invalid-feedback">Please, enter mileage</div>
                   </div>
                   <div className="col">
                     <label className="form-label text-dark" htmlFor="c-name">Fuel Tanks</label>
                     <input className="form-control form-control-md form-control-dark" id="fuel_tanks" name="FuelTank" value={truckDetail.FuelTank} onChange={updateUserInput} type="text"/>
-                    <div className="invalid-feedback">Please, enter mileage</div>
                   </div>
                 </div>
               </section>
               <div className="pt-3 text-center">
-                <button className="btn btn-lg btn-primary w-sm-auto w-100" type="submit"> Submit form</button>
+                <button className="btn btn-lg btn-primary w-sm-auto w-100" type="submit"> {loading ? <div class="spinner-border text-light" role="status"></div> : 'Submit form' }</button>
               </div>
             </form>
           </div>

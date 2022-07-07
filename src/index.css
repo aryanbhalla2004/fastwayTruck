@@ -136,3 +136,7 @@ a:hover {
 .mg-left {
   margin-left: 10px;
 }
+
+.invalid-feedback {
+  display: flex !important;
+}
