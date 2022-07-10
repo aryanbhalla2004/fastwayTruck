@@ -108,10 +108,6 @@ const SellTruck = () => {
         }));
       }
     }
-    //! Check for validation
-    //! Send Email to user for posting
-    //! Send Email to FastWay trucking
-    //! post inquire in db for the truck
   }
 
   const resetFunction = () => {

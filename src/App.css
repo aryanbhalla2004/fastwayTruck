@@ -921,3 +921,56 @@ label.checkbox span {
 .success-color {
   color: green;
 }
+
+.social-logo-footer > li{
+  padding-left: 10px;
+}
+
+.social-logo-footer > li > a {
+  color: #ffff;
+  cursor: pointer;
+}
+
+.inquireForm {
+  max-width: 500px;
+  padding: 20px;
+  width: 100%;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 7%);
+}
+
+.inquireForm > input {
+  padding-left: 10px;
+}
+
+.inquireForm > input:focus, textarea:focus {
+  border-color: #b22f33 !important;
+}
+
+.inquireForm > label {
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.list-of-amenities {
+  margin-top: 15px;
+}
+
+.list-of-amenities > li {
+  width: 33%;
+  padding: 10px;
+  align-items: center;
+  cursor: pointer;
+  word-spacing: normal;
+  font-size: 14px;
+  display: flex;
+  gap: 10px;
+}
+
+.list-of-amenities > li > i {
+  background-color: #c6c6c6;
+  font-size: 15px;
+  border-radius: 50%;
+  padding: 10px;
+}
