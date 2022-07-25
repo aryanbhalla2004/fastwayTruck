@@ -26,10 +26,10 @@ const Header = (props) => {
         <div className="content-widthfix flex fl-space-between">
           <nav className="flex fl-center fl-space-between">
             <div className="logo">
-              <img src="./images/logo.jpg" width="170"/>
+              <img src="images/logo.jpg" width="170"/>
             </div>
             <ul className="navigation-bar flex">
-              <li><Link to="home"><i className="bi bi-house-door"></i> Home</Link></li>
+              <li><Link to="/"><i className="bi bi-house-door"></i> Home</Link></li>
               <div className="seperator"></div>
               <li><Link to="trucks">Trucks</Link></li>
               <li><Link to="trailers">Trailers</Link></li>

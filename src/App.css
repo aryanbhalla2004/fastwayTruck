@@ -362,6 +362,7 @@ footer {
 
 .shop-items {
   width: 70%;
+  height: 100%;
   padding: 20px;
 }
 
@@ -973,4 +974,15 @@ label.checkbox span {
   font-size: 15px;
   border-radius: 50%;
   padding: 10px;
+}
+
+.centering-messages {
+  display: flex;
+  align-items: center;
+  height: 100% !important;
+  padding: 20px;
+  gap: 10px;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
 }

@@ -18,8 +18,8 @@ export const About = () => {
           <h2>What we do</h2>
           <h1>What makes us different from other</h1>
           <div className='text-about flex fl-center'>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates, aperiam suscipit fugit eum expedita repellendus fuga, ratione voluptas vitae quae doloremque explicabo qui nihil repudiandae. Vero molestias sapiente at aliquid. Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime, veniam voluptatibus corporis natus eligendi ullam ratione distinctio ipsa odio ipsum aspernatur totam in eveniet temporibus sit aliquid quibusdam dicta quisquam.</p>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nisi non expedita, laborum at esse, pariatur quos dolore minima vel quod aliquid fugiat? Voluptate iusto labore blanditiis harum eveniet quaerat quia. Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto quos iure mollitia maxime ipsum assumenda voluptate, soluta reprehenderit in fugiat deserunt quod aut ducimus, sequi facilis perspiciatis ut vero labore.</p>
+            <p>FASTWAY Truck Sales is the easier and faster way to get the Truck of your dreams. Our team consists of knowledgeable, Hardworking and professional ex-truck drivers, who consistently support their customers with purchase, financing options,  protection plans and other service needs. With our selection of trucks and trailers, you will never have to look elsewhere.</p>
+            <p>We carry commercial truck models from respected manufacturers, including Freightliner, Peterbilt, Volvo, Hino, International and Western Star. You will appreciate the convenient access to a beautiful variety of quality used commercial trucks.</p>
           </div>
           <a className="btn-general primary-btn"> Get in Touch <i className="bi bi-arrow-right"></i></a>
         </div>
@@ -33,12 +33,12 @@ export const About = () => {
           </div>
           <div className="about-us-content">
             <h4>About Us</h4>
-            <h2>Welcome to our car repairing shop</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <h2>Welcome to Fastway Truck Sales</h2>
+            <p>It's simpler and quicker to purchase the truck of your dreams via FASTWAY Truck Sales. Our staff is made up of experienced, diligent, and skilled ex-truck drivers that regularly assist their clients with purchasing decisions, financing alternatives, protection plans, and other service requirements. </p>
+            <p>You won't ever need to go elsewhere with our collection of trucks and trailers.</p>
             <div className='ghost-boxes flex'>
               <div className='ghost-box flex fl-center'>
-                <h1>25+</h1>
+                <h1>10+</h1>
                 <h4>Experience Members</h4>
               </div>
               <div className='ghost-box flex fl-center'>

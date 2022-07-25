@@ -36,7 +36,7 @@ const SellTruck = () => {
     TruckType: false,
     TruckMake: false,
     Year: false,
-  })
+  });
 
   const updateUserInput = (e) => {
     setFieldError(prevInput => ({

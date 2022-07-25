@@ -1,10 +1,33 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import {firebase} from "../Util/Firebase"
 import { PageTitle } from '../Components/page-header';
 import { motion } from 'framer-motion';
 import Helmet from 'react-helmet';
 import { Link } from 'react-router-dom';
 
-const Trucks = () => {
+const Trucks = () => { 
+  const [trucks, setTrucks] = useState({});
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const FetchInfo = async () => {
+      const cityRef = firebase.firestore().collection('Trucks');
+      cityRef.onSnapshot((querySnapShot) => {
+        const items = [];
+        querySnapShot.forEach((doc) => {
+          let info = doc.data();
+          let id = doc.id;
+          items.push({...info, id});  
+        });
+        setTrucks(items);
+        setLoading(false)
+      });
+    }
+    FetchInfo();
+
+    
+  }, [])
+
+  
   return (
     <motion.div initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}}>
       <Helmet>
@@ -100,57 +123,31 @@ const Trucks = () => {
           <div className='shop-items'>
             <div className='item-filter-top flex fl-center fl-space-between'>
               <i className="bi bi-arrow-return-left"></i>
-              <span>Showing <b>4</b> results</span>
+              <span>Showing <b>&nbsp;{!loading ? trucks.length > 0 ? trucks.length : "0" : "0"}&nbsp;</b> results</span>
               <i className="bi bi-arrow-return-right"></i>
             </div>
             <ul className='listing-of-items flex fl-center fl-space-between'>
-              <li className='single-item flex fl-col'>
+              {!loading && (trucks.length > 0 ? trucks.map((item, index) => (
+                <li className='single-item flex fl-col' key={index}>
                 <div className="item-image" style={{backgroundImage: `url("https://hpmis.com/backend/uploads/9487a23de53d35604b84bf4b9a24ae74k.jpeg")`}}>
-                  <span className='new-item'>New</span>
+                  <span className='new-item'>For Sale</span>
                 </div>
                 <div className='single-item-info flex fl-col'>
-                  <span className='stock-num'>Stock #517 | <b>Year: 2022</b></span>
-                  <h2>KENWORTH - T800 - DUMP TRUCK</h2>
-                  <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odit officia nobis, labore quo minus iusto nostrum voluptates delectus.</p>
+                  <span className='stock-num'>Stock #{item.stockNum} | <b>Year: {item.year}</b></span>
+                  <h2>{item.title}</h2>
+                  <p>{item.quickDescription}</p>
                   <ul className='flex'>
-                    <li><i className="bi bi-speedometer"></i> 568158 KMs</li>
-                    <li><i className="bi bi-gear-wide"></i> 18 Speed</li>
+                    <li><i className="bi bi-speedometer"></i> {item.km} KMs</li>
+                    <li><i className="bi bi-gear-wide"></i> {item.transmission}</li>
                   </ul>
                 </div>
-                <Link to={`/truck-detail/2323`} className='view-truck-button flex fl-space-between'>View Details <i className="bi bi-arrow-right"></i></Link>
-              </li>
-              <li className='single-item flex fl-col'>
-                <div className="item-image" style={{backgroundImage: `url("https://hpmis.com/backend/uploads/9487a23de53d35604b84bf4b9a24ae74k.jpeg")`}}>
-                  <span className='new-item'>New</span>
-                </div>
-                <div className='single-item-info flex fl-col'>
-                  <span className='stock-num'>Stock #517 | <b>Year: 2022</b></span>
-                  <h2>KENWORTH - T800 - DUMP TRUCK</h2>
-                  <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odit officia nobis, labore quo minus iusto nostrum voluptates delectus.</p>
-                  <ul className='flex'>
-                    <li><i className="bi bi-speedometer"></i> 568158 KMs</li>
-                    <li><i className="bi bi-gear-wide"></i> 18 Speed</li>
-                  </ul>
-                </div>
-                <Link to={`/truck-detail/2323`} className='view-truck-button flex fl-space-between'>View Details <i className="bi bi-arrow-right"></i></Link>
-              </li>
-              <li className='single-item flex fl-col'>
-                <div className="item-image" style={{backgroundImage: `url("https://hpmis.com/backend/uploads/9487a23de53d35604b84bf4b9a24ae74k.jpeg")`}}>
-                  <span className='new-item'>New</span>
-                </div>
-                <div className='single-item-info flex fl-col'>
-                  <span className='stock-num'>Stock #517 | <b>Year: 2022</b></span>
-                  <h2>KENWORTH - T800 - DUMP TRUCK</h2>
-                  <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odit officia nobis, labore quo minus iusto nostrum voluptates delectus.</p>
-                  <ul className='flex'>
-                    <li><i className="bi bi-speedometer"></i> 568158 KMs</li>
-                    <li><i className="bi bi-gear-wide"></i> 18 Speed</li>
-                  </ul>
-                </div>
-                <Link to={`/truck-detail/2323`} className='view-truck-button flex fl-space-between'>View Details <i className="bi bi-arrow-right"></i></Link>
-              </li>
+                <Link to={`/truck-detail/${item.id}`} className='view-truck-button flex fl-space-between'>View Details <i className="bi bi-arrow-right"></i></Link>
+              </li> 
+              )) : <div className='centering-messages'><p>No Results Found Please try again later</p></div>)}
+              {loading && <div className='centering-messages'><div class="spinner-border" role="status"></div><p>Loading</p></div>}
             </ul>
           </div>
+          
         </div>
       </div>
     </motion.div>

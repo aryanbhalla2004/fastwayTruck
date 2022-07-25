@@ -1,6 +1,7 @@
 import {useEffect, useState} from 'react';
-import {Routes, Route, Navigate, Link} from "react-router-dom";
-import { AnimatePresence, Motion } from 'framer-motion';
+import {Routes, Route, Navigate, useNavigate} from "react-router-dom";
+import { AnimatePresence } from 'framer-motion';
+import {firebase, auth, db} from './Util/Firebase'
 import "./App.css";
 import "./index.css";
 import Header from './Components/header';
@@ -14,33 +15,115 @@ import Trucks from './Pages/Trucks';
 import TruckDetail from './Pages/TruckDetail';
 import Trailers from './Pages/Trailers';
 import TrailerDetail from './Pages/TrailerDetail';
+import Dashboard from './Dashboard/Dashboard';
+import Login from './Pages/Login';
+import LandingPage from './Pages/LandingPage';
 
+import {Trucks as DashboardTruck} from './Dashboard/Trucks/Trucks';
+import {Trailers as DashboardTrailers} from './Dashboard/Trailers/Trailer';
+import {Inquires as DashboardInquires} from './Dashboard/ProductInquries/Inquires';
+import {NewListings as DashboardListings} from './Dashboard/NewListings/NewListings';
 const App = () => {
+  const history = useNavigate();
+  const [currentUser, setCurrentUser] = useState();
   const [page, setPage] = useState("");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+        setCurrentUser(user);
+        setLoading(false);
+    });
+
+    return unsubscribe;
+  }, []);
+
+  useEffect(() => {
     setTimeout(function() {setLoading(false)}, 0);
-  }, [loading])
+  }, [loading]);
+
+  const login = (email, password) => {
+    console.log("login");
+    return auth.signInWithEmailAndPassword(email, password);
+  };
+
+  const add = async (obj , type) => {
+    try {
+      await firebase.firestore().collection(type).doc().set(obj);
+    } catch(e){
+      return e.message
+    } 
+  }
+
+  const edit = async (obj,type,id) => {
+    try {
+      await firebase.firestore().collection(type).doc(id).update(obj);
+    } catch(e){
+      return e.message
+    } 
+  }
+
+  const del = async (type, id) => {
+    try {
+      await firebase.firestore().collection(type).doc(id).delete();
+    } catch(e){
+      return e.message
+    } 
+  }
+
+  const getData = async (from) => {
+    const cityRef = firebase.firestore().collection(from);
+    cityRef.onSnapshot((querySnapShot) => {
+      const items = [];
+      querySnapShot.forEach((doc) => {
+        let info = doc.data();
+        let id = doc.id;
+        items.push({...info, id});  
+      });
+      return items
+    });
+  }
+
+
+  const logout = () => {
+    auth.signOut().then((res) => {
+        setCurrentUser(null);
+        history("/login");
+        return res;
+      }).catch((err) => {
+        return err;
+      });
+  };
 
   return (
     <>
     {!loading ?
+    
     <AnimatePresence>
-      <Header page={page} setPage={setPage} setLoading={setLoading}/>
+      
+      
       <Routes>
-        <Route path="/" element={<Navigate to="home"/>}/>
-        <Route path="home" element={<Home setPage={setPage}/>}/>
-        <Route path="about" element={<About setPage={setPage}/>}/>
-        <Route path="trucks" element={<Trucks setPage={setPage}/>}/>
-        <Route path="trailers" element={<Trailers setPage={setPage}/>}/>
-        <Route path="about-us" element={<About setPage={setPage}/>}/>
-        <Route path="contact-us" element={<Contact setPage={setPage}/>}/>
-        <Route path="sell-truck" element={<SellTruck setPage={setPage}/>} />
-        <Route path="truck-detail/:id" element={<TruckDetail setPage={setPage}/>} />
-        <Route path="trailers-detail/:id" element={<TrailerDetail setPage={setPage}/>} />
+        <Route path="dashboard" element={currentUser ? <Dashboard currentUser={currentUser}/> : <Navigate to="/login"/>}>
+          <Route path='trucks' element={<DashboardTruck getData={getData}/>}/>
+          <Route path="trailers" element={<DashboardTrailers/>} />
+          <Route path="product-inquire" element={<DashboardInquires/>} />
+          <Route path="new-listings" element={<DashboardListings/>} />
+        </Route>
+
+        <Route path="/" element={<LandingPage setPage={setPage} setLoading={setLoading} page={page}/>}>
+          <Route index element={<Home setPage={setPage} setLoading={setLoading} page={page}/>}/>
+          <Route path="about" element={<About setPage={setPage}/>}/>
+          <Route path="trucks" element={<Trucks setPage={setPage}/>}/>
+          <Route path="trailers" element={<Trailers setPage={setPage}/>}/>
+          <Route path="about-us" element={<About setPage={setPage}/>}/>
+          <Route path="contact-us" element={<Contact setPage={setPage}/>}/>
+          <Route path="sell-truck" element={<SellTruck setPage={setPage}/>} />
+          <Route path="truck-detail/:id" element={<TruckDetail setPage={setPage}/>} />
+          <Route path="trailers-detail/:id" element={<TrailerDetail setPage={setPage}/>} />
+          <Route path="login" element={currentUser ? <Navigate to="/dashboard"/> : <Login login={login}/>}/>
+        </Route>
       </Routes>
-      <Footer />
+      
     </AnimatePresence> : <Loading/> }
     </>
   )

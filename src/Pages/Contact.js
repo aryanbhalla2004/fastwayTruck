@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { PageTitle } from '../Components/page-header';
 import { motion } from 'framer-motion';
 import Helmet from 'react-helmet';
@@ -6,7 +6,33 @@ import Helmet from 'react-helmet';
 export const Contact = () => {
   useEffect(() => {
     window.scrollTo(0, 0)
-  }, [])
+  }, []);
+
+  const [contactInfo, setContactInfo] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    phone: '',
+    message: '',
+  });
+
+  const [fieldError, setFieldError] = useState({
+    name: false,
+    email: false,
+    subject: false,
+    message: false,
+  });
+
+  const updateUserInput = (e) => {
+    setFieldError(prevInput => ({
+      ...prevInput, [e.target.name]: false
+    }));
+
+    setContactInfo(prevInput => ({
+      ...prevInput, [e.target.name]: e.target.value
+    }));
+  }
+
   return (
     <motion.div initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}}>
       <Helmet>
@@ -50,15 +76,15 @@ export const Contact = () => {
             <span>GET IN TOUCH</span>
             <h2>Fill The Form Below</h2>
             <div className="col-2-filed">
-              <input placeholder="Name" value=""/>
-              <input placeholder="Email" value=""/>
+              <input placeholder="Name" name="name" value={contactInfo.name} onChange={updateUserInput}/>
+              <input placeholder="Email" name="email" value={contactInfo.email} onChange={updateUserInput}/>
             </div>
             <div className="col-2-filed">
-              <input placeholder="Phone Number" value=""/>
-              <input placeholder="Subject" value=""/>
+              <input placeholder="Phone Number" name="phone" value={contactInfo.phone} onChange={updateUserInput}/>
+              <input placeholder="Subject" name="subject" value={contactInfo.subject} onChange={updateUserInput}/>
             </div>
-            <textarea placeholder="Your Message Here" value=""></textarea>
-            <button className='btn-general primary-btn'>Send Inquiry</button>
+            <textarea placeholder="Your Message Here" name="message" value={contactInfo.message} onChange={updateUserInput}></textarea>
+            <button className='btn-general primary-btn' type='submit'>Send Inquiry</button>
           </form>
         </div>
       </div>

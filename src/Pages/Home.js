@@ -18,7 +18,7 @@ const Home = (props) => {
           <div className="content-widthfix slider-information-content flex fl-center fl-col">
             <h3>The Largest Source for</h3>
             <h1>Heavy Duty <span className="primary-color">Truck</span> & <span className="primary-color">Trailer</span> Inventory</h1>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nobis, facere tempora debitis in dicta quae? Ullam, officia nesciunt repellendus magni nam voluptatum reiciendis expedita enim repudiandae! Voluptas eum aspernatur ipsa.</p>
+            <p>With wide range of variety in Pre-owned Trucks and other Heavy Equipment, An emerging name in city of Winnipeg – FASTWAY Truck and Trailor Sales.</p>
             <div className="flex fl-center fl-space-between">
               <Link to="/about" className="btn-general primary-btn mg-left">Learn More <i className="bi bi-info-circle"></i></Link>
               <Link to="/trucks" className="btn-general ghost-btn mg-left">Search Inventory <i className="bi bi-box-seam"></i></Link>
@@ -52,9 +52,7 @@ const Home = (props) => {
             <li>
               <img src="https://hipointtrucksales.com/img/brands/kenworth.png" alt="" srcset="https://hipointtrucksales.com/img/brands/freightliner.png" />
             </li>
-            <li>
-              <img src="https://hipointtrucksales.com/img/brands/kenworth.png" alt="" srcset="https://hipointtrucksales.com/img/brands/ford.png" />
-            </li>
+            
           </ul>
         </div>
       </div>
@@ -67,12 +65,12 @@ const Home = (props) => {
           </div>
           <div className="about-us-content">
             <h4>About Us</h4>
-            <h2>Welcome to our car repairing shop</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <h2>Welcome to Fastway Truck Sales</h2>
+            <p>It's simpler and quicker to purchase the truck of your dreams via FASTWAY Truck Sales. Our staff is made up of experienced, diligent, and skilled ex-truck drivers that regularly assist their clients with purchasing decisions, financing alternatives, protection plans, and other service requirements. </p>
+            <p>You won't ever need to go elsewhere with our collection of trucks and trailers.</p>
             <div className='ghost-boxes flex'>
               <div className='ghost-box flex fl-center'>
-                <h1>25+</h1>
+                <h1>10+</h1>
                 <h4>Experience Members</h4>
               </div>
               <div className='ghost-box flex fl-center'>
@@ -89,11 +87,11 @@ const Home = (props) => {
           <div className="about-us-content">
             <h4>Why Choose Us</h4>
             <h2>Our best advantages</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</p>
+            <p>ur team consists of knowledgeable, Hardworking and professional ex-truck drivers, who consistently support their customers with purchase, financing options,  protection plans and other service needs.</p>
             <ul className='list-of-services flex fl-space-between fl-center'>
-              <li><i className="bi bi-check2-all"></i> Low Price Guarantee</li>
-              <li><i className="bi bi-check2-all"></i> Trained Technicians</li>
-              <li><i className="bi bi-check2-all"></i> Life-Time Warranty</li>
+              <li><i className="bi bi-check2-all"></i> knowledgeable</li>
+              <li><i className="bi bi-check2-all"></i> Hardworking</li>
+              <li><i className="bi bi-check2-all"></i>  Professional ex-truck drivers</li>
               <li><i className="bi bi-check2-all"></i>  Automated testing lanes</li>
               <li><i className="bi bi-check2-all"></i> Quick Service Times</li>
               <li><i className="bi bi-check2-all"></i> Free Trade Appraisal</li>

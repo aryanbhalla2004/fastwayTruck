@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import {firebase} from "../Util/Firebase"
 import { PageTitle } from '../Components/page-header';
 import { motion } from 'framer-motion';
 import Helmet from 'react-helmet';
@@ -6,6 +7,27 @@ import { Link } from 'react-router-dom';
 
 
 export const Trailers = () => {
+  const [trailers, setTrailers] = useState({});
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const FetchInfo = async () => {
+      const cityRef = firebase.firestore().collection('Trailers');
+      cityRef.onSnapshot((querySnapShot) => {
+        const items = [];
+        querySnapShot.forEach((doc) => {
+          let info = doc.data();
+          let id = doc.id;
+          items.push({...info, id});  
+        });
+        setTrailers(items);
+        setLoading(false)
+      });
+    }
+    FetchInfo();
+
+    
+  }, [])
+
   return (
     <motion.div initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}}>
       <Helmet>
@@ -347,25 +369,29 @@ export const Trailers = () => {
           <div className='shop-items'>
             <div className='item-filter-top flex fl-center fl-space-between'>
               <i className="bi bi-arrow-return-left"></i>
-              <span>Showing <b>1</b> results</span>
+              <span>Showing <b>&nbsp;{!loading ? trailers.length > 0 ? trailers.length : "0" : "0"}&nbsp;</b> results</span>
               <i className="bi bi-arrow-return-right"></i>
             </div>
             <ul className='listing-of-items flex fl-center fl-space-between'>
-              <li className='single-item flex fl-col'>
+            {!loading && (trailers.length > 0 ? trailers.map((item, index) => (
+                <li className='single-item flex fl-col' key={index}>
                 <div className="item-image" style={{backgroundImage: `url("https://hpmis.com/backend/uploads/9487a23de53d35604b84bf4b9a24ae74k.jpeg")`}}>
-                  <span className='new-item'>New</span>
+                  <span className='new-item'>For Sale</span>
                 </div>
                 <div className='single-item-info flex fl-col'>
-                  <span className='stock-num'>Stock #517 | <b>Year: 2022</b></span>
-                  <h2>CARRIER - 8500 VECTOR - REEFER</h2>
-                  <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odit officia nobis, labore quo minus iusto nostrum voluptates delectus.</p>
+                  <span className='stock-num'>Stock #{item.stockNum} | <b>Year: {item.year}</b></span>
+                  <h2>{item.title}</h2>
+                  <p>{item.quickDescription}</p>
                   <ul className='flex'>
-                    <li><i className="bi bi-paint-bucket"></i> White</li>
-                    <li><i className="bi bi-basket2"></i> Used</li>
+                    <li><i className="bi bi-speedometer"></i> {item.km} KMs</li>
+                    <li><i className="bi bi-gear-wide"></i> {item.transmission}</li>
                   </ul>
                 </div>
-                <Link to={`/truck-detail/2323`} className='view-truck-button flex fl-space-between'>View Details <i className="bi bi-arrow-right"></i></Link>
-              </li>
+                <Link to={`/truck-detail/${item.id}`} className='view-truck-button flex fl-space-between'>View Details <i className="bi bi-arrow-right"></i></Link>
+              </li> 
+              )) : <div className='centering-messages'><p>No Results Found Please try again later</p></div>)}
+              {loading && <div className='centering-messages'><div class="spinner-border" role="status"></div><p>Loading</p></div>}
+
               
             </ul>
           </div>
