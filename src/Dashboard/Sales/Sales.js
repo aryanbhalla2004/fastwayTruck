@@ -1,14 +1,14 @@
 import React, {useState, useEffect} from 'react'
 import { Link, useOutletContext } from 'react-router-dom'
 import { firebase } from '../../Util/Firebase';
-export const NewListings = (props) => {
+export const Sales = (props) => {
   const [setDeleteBox, setDeleteId] = useOutletContext();
-  const [listings, setListings] = useState([]);
+  const [sales, setSales] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetch = async () => {
-      const cityRef = firebase.firestore().collection("TruckPost");
+      const cityRef = firebase.firestore().collection("Sales");
       cityRef.onSnapshot((querySnapShot) => {
         const items = [];
         querySnapShot.forEach((doc) => {
@@ -16,7 +16,7 @@ export const NewListings = (props) => {
           let id = doc.id;
           items.push({...info, id});  
         });
-        setListings(items)
+        setSales(items)
         setLoading(false);
       });
     }
@@ -28,35 +28,35 @@ export const NewListings = (props) => {
     <div className='header-content-right-page'>
       <div className='content-sizing-db wrapper-db-content'>
         <div className='header-and-create-button'>
-          <h3>New Listings</h3>
-          <Link to="/dashboard/trucks/add" className="btn-general primary-btn">Clear All <i class="bi bi-dash-lg"></i> </Link>
+          <h3>Bill of Sales</h3>
+          <Link to="/dashboard/sales/add" className="btn-general primary-btn">Create <i class="bi bi-plus-lg"></i> </Link>
         </div>
         <section className="card card-light card-body border-0 shadow-sm p-4 mt-5" id="basic-info">
-          <table className='activity-table listing-table'>
+          <table className='activity-table bill-table'>
             <thead>
-              <th>Status</th>
-              <th>Email</th>
-              <th>Type</th>
-              <th>Make</th>
-              <th>Year</th>
+              <th>Dealor #</th>
+              <th>Customer</th>
+              <th>Payment</th>
+              <th>Date</th>
               <th></th>
             </thead>
             <tbody>
-              {!loading && (listings && listings.map((item, index) => (
+              {!loading && (sales && sales.map((item, index) => (
                 <tr key={index}>
                   <td>
-                    {item.status === "new" && <div className='new-item'>NEW</div>}
+                    {item.dealorNum}
+                  </td>
+                  <td><span>{item.fName} {item.lName}</span>{item.email}</td>
+                  <td>
+                    {item.payment === "pending" && <div className='new-item'>Pending</div>}  
                     {item.status === "viewed" && <div className='old-item'>VIEWED</div>}
                   </td>
-                  <td><span>{item.ContactName}</span>{item.ContactEmail}</td>
-                  <td>{item.TruckType}</td>
-                  <td>{item.TruckMake}</td>
-                  <td>{item.Year}</td>
-                  <td><a href="#" className="btn-danger delete-button-table" onClick={() => {setDeleteBox(true); setDeleteId({...item, type: "TruckPost"})}}><i class="bi bi-trash3"></i> Delete</a><Link className=" edit-button" to={`/dashboard/new-listing/${item.id}`}><i class="bi bi-binoculars"></i> View</Link></td>
+                  <td>{item.date}</td>
+                  <td><a href="#" className="btn-danger delete-button-table" onClick={() => {setDeleteBox(true); setDeleteId({...item, type: "Sales"})}}><i class="bi bi-trash3"></i> Delete</a><Link className=" edit-button" to={`/dashboard/sales/${item.id}`}><i class="bi bi-binoculars"></i> View</Link><Link className=" edit-button" to="/"><i class="bi bi-binoculars"></i> Download</Link></td>
                 </tr>
               )))}
             </tbody>
-            {!loading && listings != undefined && listings.length <= 0 && 
+            {!loading && sales != undefined && sales.length <= 0 && 
             <div className='centering-messages mt-5'>
               <h4>No Items Found</h4>
               <p>It seems we don't have any inventory in the system</p>
@@ -72,4 +72,4 @@ export const NewListings = (props) => {
   )
 }
 
-export default NewListings
+export default Sales

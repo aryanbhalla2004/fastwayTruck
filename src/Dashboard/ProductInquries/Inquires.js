@@ -1,9 +1,11 @@
 import React, {useState, useEffect} from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useOutletContext, useNavigate } from 'react-router-dom'
 import { firebase } from '../../Util/Firebase';
 
 export const Inquires = () => {
-  const [trailers, setTrailers] = useState([]);
+  const history = useNavigate();
+  const [setDeleteBox, setDeleteId] = useOutletContext();
+  const [inquires, setInquires] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -16,7 +18,7 @@ export const Inquires = () => {
           let id = doc.id;
           items.push({...info, id});  
         });
-        setTrailers(items)
+        setInquires(items)
         setLoading(false);
       });
     }
@@ -28,41 +30,41 @@ export const Inquires = () => {
     <div className='header-content-right-page'>
       <div className='content-sizing-db wrapper-db-content'>
         <div className='header-and-create-button'>
-          <h3>My Inquires</h3>
+          <h3>Products Inquires</h3>
           <Link to="/dashboard/trucks/add" className="btn-general primary-btn">Clear All <i class="bi bi-dash-lg"></i> </Link>
         </div>
-        <table className='activity-table'>
-          <thead>
-            <th>Stocks #</th>
-            <th>Title</th>
-            <th>Year</th>
-            <th>Created Date</th>
-            <th>Quantity</th>
-            <th></th>
-          </thead>
-          <tbody>
-            {!loading && (trailers && trailers.map((item, index) => (
-              <tr key={index}>
-                <td>{item.stockNum}</td>
-                <td>{item.title}</td>
-                <td>{item.year}</td>
-                <td>{item.createdDate}</td>
-                <td>{item.quantity}</td>
-                <td><Link className="btn-danger delete-button-table" to="/"><i class="bi bi-trash3"></i> Delete</Link><Link className=" edit-button" to="/"><i class="bi bi-pencil"></i> Edit</Link></td>
-              </tr>
-            )))}
-          </tbody>
-          {!loading && trailers != undefined && trailers.length <= 0 && 
-          <div className='centering-messages mt-5'>
-            <h4>No Items Found</h4>
-            <p>It seems we don't have any inventory for product Inquires</p>
-            <Link className="btn-general primary-btn mt-3" to="/">Back Home</Link>
-          </div>
-          }
+        <section className="card card-light card-body border-0 shadow-sm p-4 mt-5" id="basic-info">
+          <table className='activity-table inquire-table'>
+            <thead>
+              <th>Status</th>
+              <th>Email</th>
+              <th>Product</th>
+              <th>Phone Number</th>
+              <th></th>
+            </thead>
+            <tbody>
+              {!loading && (inquires && inquires.map((item, index) => (
+                <tr key={index}>
+                  <td> {item.status === "new" && <div className='new-item'>NEW</div>}  {item.status === "viewed" && <div className='old-item'>VIEWED</div>}</td>
+                  <td><span>{item.Name}</span>{item.Email}</td>
+                  <td>{item.Product}</td>
+                  <td>{item.Phone}</td>
+                  <td><a href="#" className="btn-danger delete-button-table" onClick={() => {setDeleteBox(true); setDeleteId({...item, type: "Inquires"})}}><i class="bi bi-trash3"></i> Delete</a><Link className=" edit-button" to={`/dashboard/product-inquire/${item.id}`}><i class="bi bi-binoculars"></i> View</Link></td>
+                </tr>
+              )))}
+            </tbody>
+            {!loading && inquires != undefined && inquires.length <= 0 && 
+            <div className='centering-messages mt-5'>
+              <h4>No Items Found</h4>
+              <p>It seems we don't have any inventory for product Inquires</p>
+              <Link className="btn-general primary-btn mt-3" to="/dashboard">Back Home</Link>
+            </div>
+            }
 
-          {loading && <div className='centering-messages mt-5'><div class="spinner-border" role="status"></div><p>Please Wait</p></div>}
-      
-        </table>
+            {loading && <div className='centering-messages mt-5'><div class="spinner-border" role="status"></div><p>Please Wait</p></div>}
+        
+          </table>
+        </section>
       </div>
     </div>
   )

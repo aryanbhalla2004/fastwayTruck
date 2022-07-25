@@ -23,6 +23,18 @@ import {Trucks as DashboardTruck} from './Dashboard/Trucks/Trucks';
 import {Trailers as DashboardTrailers} from './Dashboard/Trailers/Trailer';
 import {Inquires as DashboardInquires} from './Dashboard/ProductInquries/Inquires';
 import {NewListings as DashboardListings} from './Dashboard/NewListings/NewListings';
+import {Sales as DashboardSales} from './Dashboard/Sales/Sales';
+import SaleView from './Dashboard/Sales/SaleView';
+import SalesAdd from './Dashboard/Sales/SalesAdd';
+import SalesEdit from './Dashboard/Sales/SalesEdit';
+import NewListingView from './Dashboard/NewListings/NewListingView';
+import InquireView from './Dashboard/ProductInquries/InquireView';
+import TrailerView from './Dashboard/Trailers/TrailerView';
+import TrailerAdd from './Dashboard/Trailers/TrailerAdd';
+import TrailerEdit from './Dashboard/Trailers/TrailerEdit';
+import TruckView from './Dashboard/Trucks/TruckView';
+import TruckAdd from './Dashboard/Trucks/TruckAdd';
+import TruckEdit from './Dashboard/Trucks/TruckEdit';
 const App = () => {
   const history = useNavigate();
   const [currentUser, setCurrentUser] = useState();
@@ -98,16 +110,32 @@ const App = () => {
   return (
     <>
     {!loading ?
-    
     <AnimatePresence>
-      
-      
       <Routes>
-        <Route path="dashboard" element={currentUser ? <Dashboard currentUser={currentUser}/> : <Navigate to="/login"/>}>
-          <Route path='trucks' element={<DashboardTruck getData={getData}/>}/>
+        <Route path="dashboard" element={currentUser ? <Dashboard del={del} currentUser={currentUser} logout={logout}/> : <Navigate to="/login"/>}>
+          //! Trucks
+          <Route path="trucks" element={<DashboardTruck getData={getData}/>}/>
+          <Route path="trucks/:id" element={<TruckView/>}/>
+          <Route path="trucks/add" element={<TruckAdd/>}/>
+          <Route path="trucks/edit/:id" element={<TruckEdit/>}/>
+
+          //! Trailers
           <Route path="trailers" element={<DashboardTrailers/>} />
+          <Route path="trailers/:id" element={<TrailerView/>}/>
+          <Route path="trailers/add" element={<TrailerAdd/>}/>
+          <Route path="trailers/edit/:id" element={<TrailerEdit/>}/>
+
           <Route path="product-inquire" element={<DashboardInquires/>} />
+          <Route path="product-inquire/:id" element={<InquireView/>}/>
+
           <Route path="new-listings" element={<DashboardListings/>} />
+          <Route path="new-listing/:id" element={<NewListingView/>}/>
+
+          //! Bill of Sales
+          <Route path="sales" element={<DashboardSales/>} />
+          <Route path="sales/:id" element={<SaleView/>}/>
+          <Route path="sales/add" element={<SalesAdd/>}/>
+          <Route path="sales/edit/:id" element={<SalesEdit/>}/>
         </Route>
 
         <Route path="/" element={<LandingPage setPage={setPage} setLoading={setLoading} page={page}/>}>

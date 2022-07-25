@@ -145,7 +145,7 @@ const SellTruck = () => {
           <h2 className='selection-header-text'>Sell your truck with us</h2>
           <p className='selection-small-text'>Fill out the form and our team will try to get back to you within 24 hours.</p>
           <form onSubmit={onSubmit}>
-            <section className="card card-light card-body border-0 shadow-sm p-4 mb-4" id="basic-info">
+            <section className="card card-light card-body border-0 shadow-sm p-4 mb-4 " id="basic-info">
               <h2 className="h4 mb-4">Contact Details</h2>
               <div className="row">
                 <div className="col">
