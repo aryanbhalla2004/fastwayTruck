@@ -145,8 +145,8 @@ const App = () => {
           <Route path="trailers" element={<Trailers setPage={setPage}/>}/>
           <Route path="about-us" element={<About setPage={setPage}/>}/>
           <Route path="contact-us" element={<Contact setPage={setPage}/>}/>
-          <Route path="sell-truck" element={<SellTruck setPage={setPage}/>} />
-          <Route path="truck-detail/:id" element={<TruckDetail setPage={setPage}/>} />
+          <Route path="sell-truck" element={<SellTruck setPage={setPage} add={add}/>} />
+          <Route path="truck-detail/:id" element={<TruckDetail setPage={setPage} add={add}/>} />
           <Route path="trailers-detail/:id" element={<TrailerDetail setPage={setPage}/>} />
           <Route path="login" element={currentUser ? <Navigate to="/dashboard"/> : <Login login={login}/>}/>
         </Route>

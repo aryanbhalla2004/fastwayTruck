@@ -3,10 +3,9 @@ import { PageTitle } from '../Components/page-header';
 import { motion } from 'framer-motion';
 import Helmet from 'react-helmet';
 import moment from 'moment';
-import {firebase} from "../Util/Firebase";
 import emailjs from '@emailjs/browser';
 
-const SellTruck = () => {
+const SellTruck = (props) => {
   const [message, setMessage] = useState(false);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -26,6 +25,7 @@ const SellTruck = () => {
     WheelBase: '',
     Sleeper: '',
     Mileage: '',
+    status: 'new',
     FuelTank: ''
   });
 
@@ -55,12 +55,12 @@ const SellTruck = () => {
     if(truckDetail.ContactName != "" && truckDetail.ContactEmail != "" && truckDetail.ContactPhone != "" && truckDetail.TruckType != "" && truckDetail.TruckMake != "" && truckDetail.Year <= moment().year() + 1 && truckDetail.Year > 1900) {
       try {
         await emailjs.send("service_7bhb3hf", "template_zolsttk", truckDetail, 'O4nqrVM4jnHS9WBVF');
-        await firebase.firestore().collection("TruckPost").doc().set(truckDetail);
+        props.add(truckDetail, "TruckPost");
         setTimeout(() => {
           setLoading(false);
           setMessage(true);
           window.scrollTo(0, 0)
-        }, 3000)
+        }, 1000)
         
       } catch(e) {
         setError(true);

@@ -39,16 +39,16 @@ export const Inquires = () => {
               <th>Status</th>
               <th>Email</th>
               <th>Product</th>
-              <th>Phone Number</th>
+              <th>Subject</th>
               <th></th>
             </thead>
             <tbody>
               {!loading && (inquires && inquires.map((item, index) => (
                 <tr key={index}>
                   <td> {item.status === "new" && <div className='new-item'>NEW</div>}  {item.status === "viewed" && <div className='old-item'>VIEWED</div>}</td>
-                  <td><span>{item.Name}</span>{item.Email}</td>
-                  <td>{item.Product}</td>
-                  <td>{item.Phone}</td>
+                  <td><span>{item.name}</span>{item.email}</td>
+                  <td>{item.productId}</td>
+                  <td>{item.subject}</td>
                   <td><a href="#" className="btn-danger delete-button-table" onClick={() => {setDeleteBox(true); setDeleteId({...item, type: "Inquires"})}}><i class="bi bi-trash3"></i> Delete</a><Link className=" edit-button" to={`/dashboard/product-inquire/${item.id}`}><i class="bi bi-binoculars"></i> View</Link></td>
                 </tr>
               )))}

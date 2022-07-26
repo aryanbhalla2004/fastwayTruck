@@ -3,8 +3,10 @@ import { PageTitle } from '../Components/page-header';
 import { motion } from 'framer-motion';
 import Helmet from 'react-helmet';
 import { Link } from 'react-router-dom';
+import emailjs from '@emailjs/browser';
+import {firebase} from "../Util/Firebase";
 
-const TruckDetail = () => {
+const TruckDetail = (props) => {
   const [currentPage, setCurrentPage] = useState("profile");
   const [loading, setLoading] = useState(true);
   const [product, setProduct] = useState({});
@@ -19,7 +21,8 @@ const TruckDetail = () => {
     email: '',
     productId: 'ASD8123HASD89123',
     subject: '',
-    message: ''
+    message: '',
+    status: 'new'
   });
 
   const updateUserInput = (e) => {
@@ -32,15 +35,26 @@ const TruckDetail = () => {
     }));
   }
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
 
     if(inquire.name != "" && inquire.email != "" && inquire.message != "") {
+      console.log("sdsd");
       try {
-        //await emailjs.send("service_7bhb3hf", "template_zolsttk", truckDetail, 'O4nqrVM4jnHS9WBVF');
-        //await firebase.firestore().collection("inquire").doc().set(inquire);
-      } catch (e) {
 
+        //! do the email
+        //await emailjs.send("service_7bhb3hf", "template_zolsttk", inquire, 'O4nqrVM4jnHS9WBVF');
+        await props.add(inquire, "Inquires");
+        setInquire({
+          name: '',
+          email: '',
+          productId: 'ASD8123HASD89123',
+          subject: '',
+          message: '',
+          status: 'new'
+        });
+      } catch (e) {
+        console.log(e);
       }
     } else {
       if(inquire.name === "") {
